@@ -2,7 +2,7 @@ FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 RUN apk add gradle git curl && \
   curl -L https://api.github.com/repos/kernelold/boot-core/tarball > hello.tar.gz && \
-  tar xvf hello.tar.gz  -C ./hello && cd ./hello &&\
+  tar xvf hello.tar.gz && mv mv kernelold-boot-core-* hello && cd hello\
   gradle build 
 ARG JAR_FILE=./build/libs/hello-latest.jar
 COPY ${JAR_FILE} app.jar
