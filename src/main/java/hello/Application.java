@@ -12,7 +12,7 @@ public class Application {
 
     Map<String, String> env = System.getenv();
 
-    String AZ = "Region is" + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
+    String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
 
     @RequestMapping("/")
     public String home() {
@@ -21,7 +21,7 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "Hello \n" + " v 12 \n" + "\n" + AZ ;
+        return "Hello \n" + " v 15 \n" + "\n" + AZ ;
     }
 
 
