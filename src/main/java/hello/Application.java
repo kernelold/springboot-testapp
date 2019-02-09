@@ -21,7 +21,7 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "Hello \n" + AZ ;
+        return "Hello \n" + " v 12 \n" + "\n" + AZ ;
     }
 
 
