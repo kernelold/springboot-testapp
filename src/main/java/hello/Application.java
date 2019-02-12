@@ -5,10 +5,36 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+import java.net.*;
+import java.io.*;
 
 @SpringBootApplication
 @RestController
 public class Application {
+  String urlt;
+  public void ReadWebPage(String urlText) {
+    BufferedReader in = null;
+    try {
+      URL url = new URL(urlText);
+      in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+      String inputLine;
+      while ((inputLine = in.readLine()) != null) {
+      urlt = inputLine;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      if (in != null) {
+        try {
+          in.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
 
     Map<String, String> env = System.getenv();
 
@@ -21,7 +47,8 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "Hello \n" + " v 15 \n" + "\n" + AZ ;
+        ReadWebPage("http://localhost:8081/"); 
+        return "Hello \n" + " v 15 \n" + "\n" + AZ + " \n " + urlt + "\n" ;
     }
 
 
