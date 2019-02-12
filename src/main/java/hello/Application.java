@@ -49,7 +49,7 @@ public class Application {
         String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
         String TimeappUrl = System.getenv("TIMEAPP_URL");
         ReadWebPage(TimeappUrl); 
-        return "Hello \n" + " v 15 \n" + "\n" + AZ + " \n " + urlt + "\n" ;
+        return "Hello \n" + " v 16 \n" + "\n" + AZ + " \n " + urlt + "\n" ;
     }
 
 
