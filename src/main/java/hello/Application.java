@@ -38,7 +38,6 @@ public class Application {
 
     Map<String, String> env = System.getenv();
 
-    String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
 
     @RequestMapping("/")
     public String home() {
@@ -47,7 +46,9 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        ReadWebPage("http://localhost:8081/"); 
+        String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
+        String TimeappUrl = System.getenv("TIMEAPP_URL");
+        ReadWebPage(TimeappUrl); 
         return "Hello \n" + " v 15 \n" + "\n" + AZ + " \n " + urlt + "\n" ;
     }
 
