@@ -35,9 +35,7 @@ public class Application {
     }
   }
 
-
     Map<String, String> env = System.getenv();
-
 
     @RequestMapping("/")
     public String home() {
@@ -46,10 +44,17 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n"   ;
+        String AZ = "Region is " + System.getenv("AWS_REGION") + "\n" + "Env is " + env + "\n";
         String TimeappUrl = System.getenv("TIMEAPP_URL");
         ReadWebPage(TimeappUrl); 
-        return "Hello \n" + " v 16 \n" + "\n" + AZ + " \n " + urlt + "\n" ;
+        String Timenow = urlt;
+        String contmeta = System.getenv("ECS_CONTAINER_METADATA_URI");
+        ReadWebPage(contmeta);
+        String Meta = urlt;
+        String Meta2url = "http://169.254.169.254/latest/meta-data/placement/availability-zone";
+        ReadWebPage(Meta2url); 
+        String Meta2 = urlt;
+        return "Hello \n" + "v 33 \n" + "\n" + AZ + " \n " + Timenow + "\n" + "Contmata " + Meta + "\n" + "Meta2 " + Meta2 + "\n" ;
     }
 
 
