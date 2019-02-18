@@ -11,15 +11,14 @@ import java.io.*;
 @SpringBootApplication
 @RestController
 public class Application {
-    
     String urlt;
-    
+
     public void ReadWebPage(String urlText) {
       BufferedReader in = null;
       try {
         URL url = new URL(urlText);
         in = new BufferedReader(new InputStreamReader(url.openStream()));
-   
+
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
         urlt = inputLine;
@@ -44,18 +43,39 @@ public class Application {
 
     @RequestMapping("/hello")
     public String hello() {
-        String Region = "Region is " + System.getenv("AWS_REGION") + "\n" + "Hostname is " + System.getenv("HOSTNAME") + "\n";
+       
+        String AZ = "unknown";
+        String Hostname = System.getenv("HOSTNAME");
+        String Region = System.getenv("AWS_REGION");
+        if(Hostname.matches("(.*)ip-10-0-0(.*)"))
+        {
+            AZ = "us-west-1a" ;
+        } else if(Hostname.matches("(.*)ip-10-0-1(.*)"))
+        {
+            AZ = "us-west-1c" ;
+        } else {
+            AZ = "not match";
+        }  
+        String Placement = "Region is " + Region + "\n" + "Hostname is " + Hostname + "\n" + "AZ is " + AZ + "\n";
+        
         String TimeappUrl = System.getenv("TIMEAPP_URL");
-        ReadWebPage(TimeappUrl); 
+        ReadWebPage(TimeappUrl);
         String Timenow = urlt;
+
+        return "Hello \n" + Placement + "Time now is " + Timenow + "\n";
+    }
+    
+    @RequestMapping("/meta")
+    public String meta() {
+
         String contmeta = System.getenv("ECS_CONTAINER_METADATA_URI");
         ReadWebPage(contmeta);
         String Meta = urlt;
-        return "Hello \n" + "v 33 \n" + "\n" + Region + " \n " + Timenow + "\n" + "Container meta is " + Meta + "\n";
+
+        return Meta + "\n";
     }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
 }
